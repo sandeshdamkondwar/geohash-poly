@@ -1,17 +1,16 @@
 {
-  "name": "geohash-poly",
+  "name": "geohash-poly-coverage",
   "version": "0.5.3",
   "description": "Transform a GeoJSON Polygon or MultiPolygon to a list of geohashes that form it.",
   "main": "index.js",
   "bin": "./bin/cli.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com/derrickpelletier/geohash-poly.git"
+    "url": "http://github.com/sandeshdamkondwar/geohash-poly.git"
   },
   "author": {
-    "name": "Derrick Pelletier",
-    "email": "derrick@dpelletier.com",
-    "url": "http://dpelletier.com"
+    "name": "Sandesh Damkondwar",
+    "email": "sandesh.d@swiggy.in"
   },
   "license": "MIT",
   "readmeFilename": "README.md",

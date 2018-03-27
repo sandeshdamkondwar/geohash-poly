@@ -6,10 +6,10 @@ var Readable = require('stream').Readable,
   turfPolygon = require('turf-polygon'),
   turfIntersect = require('turf-intersect'),
   turf = {
-  	extent: turfExtent,
-  	featurecollection: turfFeaturecollection,
-  	polygon: turfPolygon,
-  	intersect: turfIntersect
+    extent: turfExtent,
+    featurecollection: turfFeaturecollection,
+    polygon: turfPolygon,
+    intersect: turfIntersect
   },
   through2 = require('through2'),
   async = require('async'),
@@ -61,15 +61,15 @@ var Hasher = function (options) {
     return turf.polygon(el);
   });
   if (this.integerMode) {
-  	this.geohashEncode = geohash.encode_int;
-  	this.geohashDecode = geohash.decode_int;
-  	this.geohashDecodeBbox = geohash.decode_bbox_int;
-  	this.geohashNeighbor = geohash.neighbor_int;
+    this.geohashEncode = geohash.encode_int;
+    this.geohashDecode = geohash.decode_int;
+    this.geohashDecodeBbox = geohash.decode_bbox_int;
+    this.geohashNeighbor = geohash.neighbor_int;
   } else {
-  	this.geohashEncode = geohash.encode;
-  	this.geohashDecode = geohash.decode;
-  	this.geohashDecodeBbox = geohash.decode_bbox;
-  	this.geohashNeighbor = geohash.neighbor;
+    this.geohashEncode = geohash.encode;
+    this.geohashDecode = geohash.decode;
+    this.geohashDecodeBbox = geohash.decode_bbox;
+    this.geohashNeighbor = geohash.neighbor;
   }
 
   Readable.call(this, {
@@ -185,12 +185,25 @@ Hasher.prototype.getNextRow = function (done) {
       }
 
       if(self.hashMode === 'inside' || self.hashMode === 'extent' || !rowHashes.length) {
+        rowHashes = rowHashes.map(function (hash) {
+          return {
+            hash: hash,
+            coverage: 1
+          }
+        });
         done(null, rowHashes);
       } else if (self.hashMode === 'intersect') {
 
         var baseArea = null;
+        rowHashes = rowHashes.map(function (hash) {
+          return {
+            hash: hash,
+            coverage: 0
+          }
+        })
+
         async.filter(rowHashes, function (h, cb) {
-          var bb = self.geohashDecodeBbox(h, self.precision);
+          var bb = self.geohashDecodeBbox(h.hash, self.precision);
           bb = turf.polygon([[
                 [bb[1], bb[2]],
                 [bb[3], bb[2]],
@@ -201,13 +214,21 @@ Hasher.prototype.getNextRow = function (done) {
 
           if(!baseArea) baseArea = geojsonArea.geometry(bb.geometry);
 
-          var intersected = turf.intersect(turf.featurecollection([turf.polygon(prepared.coordinates)]), turf.featurecollection([bb]));
-          var keepIntersection = !self.threshold ? true : false;
-          if(self.threshold && intersected.features.length && (intersected.features[0].type === 'Polygon' || intersected.features[0].type === 'MultiPolygon')) {
-            var intersectedArea = geojsonArea.geometry(intersected.features[0]);
-            keepIntersection = baseArea && intersectedArea / baseArea >= self.threshold;
+          try {
+            var intersected = turf.intersect(turf.featurecollection([turf.polygon(prepared.coordinates)]), turf.featurecollection([bb]));
+            var keepIntersection = true;
+            self.threshold = 0.01;
+            if(self.threshold && intersected.features.length && (intersected.features[0].type === 'Polygon' || intersected.features[0].type === 'MultiPolygon')) {
+              var intersectedArea = geojsonArea.geometry(intersected.features[0]);
+              keepIntersection = baseArea && intersectedArea / baseArea >= self.threshold;
+              h.coverage = baseArea && intersectedArea / baseArea;
+            }
+            cb(keepIntersection);
+
+          } catch(e) {
+            cb(false);
+            // console.log(h);
           }
-          cb(keepIntersection);
         }, function (results) {
           done(null, results);
         });
