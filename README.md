@@ -1,6 +1,6 @@
 # Geohash-poly
 
-`npm install geohash-poly`
+`npm install geohash-poly-coverage`
 
 Transform a GeoJSON (Multi)Polygon to a list of geohashes that cover it.
 
@@ -84,7 +84,7 @@ Results in:
 - `precision`: geohash precision (eg. "gfjf1" is a precision 5 geohash).
 - `rowMode`: allows for processing of geohashes by row.
 - `hashMode`: defines filtering of returned geohashes. See below.
-- `integerMode`: (true/false) Outputs integer versions of geohashes. Default precision for integer mode is 32 bits. 
+- `integerMode`: (true/false) Outputs integer versions of geohashes. Default precision for integer mode is 32 bits.
 
 
 ## hashMode
