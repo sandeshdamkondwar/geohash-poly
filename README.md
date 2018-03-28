@@ -99,7 +99,7 @@ The `hashMode` option can be used to specify which hashes to return. Defaults to
 
 You can also install as a command line util via
 
-`npm install geohash-poly -g`
+`npm install geohash-poly-coverage -g`
 
 ## command line usage
 
