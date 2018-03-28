@@ -51,31 +51,157 @@ geohashpoly({coords: polygon, precision: 7}, function (err, hashes) {
 
 Results in:
 ```
-[ 'c22zrgg', 'c22zrgu', 'c22zrgv', 'c22zrgy', 'c22zrgz', 'c23p25b', 'c22zrge', 'c22zrgs', 'c22zrgt', 'c22zrgw', 'c22zrgx', 'c23p258', 'c23p259', 'c23p25d', 'c22zrg7', 'c22zrgk', 'c22zrgm', 'c22zrgq', 'c22zrgr', 'c23p252', 'c23p253', 'c23p256', 'c22zrg5', 'c22zrgh', 'c22zrgj', 'c22zrgn', 'c22zrgp', 'c23p250', 'c23p251', 'c23p254' ]
+[{
+  hash: 'c22zrgg',
+  coverage: 1
+  }, {
+    hash: 'c22zrgu',
+    coverage: 1
+  }, {
+    hash: 'c22zrgv',
+    coverage: 1
+  }, {
+    hash: 'c22zrgy',
+    coverage: 1
+  }, {
+    hash: 'c22zrgz',
+    coverage: 1
+  }, {
+    hash: 'c23p25b',
+    coverage: 1
+  }, {
+    hash: 'c22zrge',
+    coverage: 1
+  }, {
+    hash: 'c22zrgs',
+    coverage: 1
+  }, {
+    hash: 'c22zrgt',
+    coverage: 1
+  }, {
+    hash: 'c22zrgw',
+    coverage: 1
+  }, {
+    hash: 'c22zrgx',
+    coverage: 1
+  }, {
+    hash: 'c23p258',
+    coverage: 1
+  }, {
+    hash: 'c23p259',
+    coverage: 1
+  }, {
+    hash: 'c23p25d',
+    coverage: 1
+  }, {
+    hash: 'c22zrg7',
+    coverage: 1
+  }, {
+    hash: 'c22zrgk',
+    coverage: 1
+  }, {
+    hash: 'c22zrgm',
+    coverage: 1
+  }, {
+    hash: 'c22zrgq',
+    coverage: 1
+  }, {
+    hash: 'c22zrgr',
+    coverage: 1
+  }, {
+    hash: 'c23p252',
+    coverage: 1
+  }, {
+    hash: 'c23p253',
+    coverage: 1
+  }, {
+    hash: 'c23p256',
+    coverage: 1
+  }, {
+    hash: 'c22zrg5',
+    coverage: 1
+  }, {
+    hash: 'c22zrgh',
+    coverage: 1
+  }, {
+    hash: 'c22zrgj',
+    coverage: 1
+  }, {
+    hash: 'c22zrgn',
+    coverage: 1
+  }, {
+    hash: 'c22zrgp',
+    coverage: 1
+  }, {
+    hash: 'c23p250',
+    coverage: 1
+  }, {
+    hash: 'c23p251',
+    coverage: 1
+  }, {
+    hash: 'c23p254',
+    coverage: 1
+  }]
 ```
 
 Also, integer geohashes are available.
 ```javascript
 
-geohashpoly({coords: polygon, precision: 34, integerMode: true}, function (err, hashes) {
-    console.log(hashes);
+geohashpoly({coords: polygon, precision: 7, hashMode: 'intersect', threshold: .2 }, function (err, hashes) {
+  console.log(hashes);
 });
 ```
 
 Results in:
 ```
-[ 5940702973,
-  5940702975,
-  5941052501,
-  5940702972,
-  5940702974,
-  5941052500,
-  5940702969,
-  5940702971,
-  5941052497,
-  5940702968,
-  5940702970,
-  5941052496 ]
+[ { hash: 'c22zru5', coverage: 0.10907589476779773 },
+  { hash: 'c22zruh', coverage: 0.1833206866007423 },
+  { hash: 'c22zruj', coverage: 0.18028863540246373 },
+  { hash: 'c22zrun', coverage: 0.17725658397633032 },
+  { hash: 'c22zrup', coverage: 0.371854519968465 },
+  { hash: 'c23p2h0', coverage: 0.4366205168312899 },
+  { hash: 'c23p2h1', coverage: 0.12629543815440486 },
+  { hash: 'c23p2h4', coverage: 0 },
+  { hash: 'c22zrgg', coverage: 0.5812073274274521 },
+  { hash: 'c22zrgu', coverage: 1 },
+  { hash: 'c22zrgv', coverage: 1 },
+  { hash: 'c22zrgy', coverage: 1 },
+  { hash: 'c22zrgz', coverage: 1 },
+  { hash: 'c23p25b', coverage: 1 },
+  { hash: 'c23p25c', coverage: 0.37848902360176456 },
+  { hash: 'c23p25f', coverage: 0.10250388213616111 },
+  { hash: 'c22zrge', coverage: 0.5709529397036096 },
+  { hash: 'c22zrgs', coverage: 1 },
+  { hash: 'c22zrgt', coverage: 1 },
+  { hash: 'c22zrgw', coverage: 1 },
+  { hash: 'c22zrgx', coverage: 1 },
+  { hash: 'c23p258', coverage: 1 },
+  { hash: 'c23p259', coverage: 1 },
+  { hash: 'c23p25d', coverage: 0.9209610307039969 },
+  { hash: 'c22zrg7', coverage: 0.5606985520190635 },
+  { hash: 'c22zrgk', coverage: 1 },
+  { hash: 'c22zrgm', coverage: 1 },
+  { hash: 'c22zrgq', coverage: 1 },
+  { hash: 'c22zrgr', coverage: 1 },
+  { hash: 'c23p252', coverage: 1 },
+  { hash: 'c23p253', coverage: 1 },
+  { hash: 'c23p256', coverage: 0.9332695646194833 },
+  { hash: 'c22zrg5', coverage: 0.2802101944420237 },
+  { hash: 'c22zrgh', coverage: 0.508891052308125 },
+  { hash: 'c22zrgj', coverage: 0.5116739844316215 },
+  { hash: 'c22zrgn', coverage: 0.5144569167128468 },
+  { hash: 'c22zrgp', coverage: 0.8135562497690018 },
+  { hash: 'c23p250', coverage: 1 },
+  { hash: 'c23p251', coverage: 0.6897629518261557 },
+  { hash: 'c23p254', coverage: 0.5121017007737163 },
+  { hash: 'c22zrfg', coverage: 0 },
+  { hash: 'c22zrfu', coverage: 0 },
+  { hash: 'c22zrfv', coverage: 0 },
+  { hash: 'c22zrfy', coverage: 0 },
+  { hash: 'c22zrfz', coverage: 0.027006766873594174 },
+  { hash: 'c23p24b', coverage: 0.048726767963002855 },
+  { hash: 'c23p24c', coverage: 0.01784468101138806 },
+  { hash: 'c23p24f', coverage: 0 } ]
 ```
 
 ## Options
